@@ -1,0 +1,6 @@
+{
+    "name": "Media Monitor",
+    "description": "A Node.js app to compare web articles.",
+    "repository": "https://github.com/ericsauber/word-counter.git",
+    "keywords": ["node", "compare", "news"]
+}

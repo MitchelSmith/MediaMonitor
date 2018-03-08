@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+
+<head>
+    <link rel="stylesheet" href="stylesheet.css">
+    <link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Raleway:100" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Barlow+Semi+Condensed" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        function getHost(URL) {
+            var host;
+
+            if (URL.indexOf('://') > -1) {
+                host = URL.split('/')[2];
+            } else {
+                host = URL.split('/')[0];
+            }
+
+            host = host.split(':')[0];
+            host = host.split('?')[0];
+
+            return host;
+        }
+    </script>
+
+    <title>MEDIA monitor</title>
+</head>
+
+<div class="shadow">
+    <ul>
+        <nav id="topBar">
+
+            <li><a href="/contact">CONTACT</a></li>
+            <li><a href="/about">ABOUT</a></li>
+            <li><a href="/">HOME</a></li>
+
+        </nav>
+
+        <div class="smalllogo">
+            <li>
+                <a href="#"><img style="width:50px; height:40px;" src="smalllogo.png" /></a>
+            </li>
+        </div>
+
+    </ul>
+</div>
+
+
+<div id="logo" class="mainlogo">
+    <img style="text-align: center" src="MMlogo.png" />
+</div>
+
+<div id="center">
+
+    <h3> Contact </h3>
+    <p> This is our contact page</p>
+
+</div>
+
+   
+    
+
+
+<!-- JAVASCRIPT PART -->
+
+    <script>
+        // this allows us to change html/css things with javascript
+        var leftText = document.querySelector("#leftCol");
+        var middleBox = document.querySelector("#middle");
+        var middleBox2 = document.querySelector("#middle2");
+        var allBox = document.querySelector("#all");
+        var rightText = document.querySelector("#rightCol");
+        var rightText = document.querySelector("#rightCol");
+        var ratingBox = document.querySelector("#rating");
+        var leftSimArt1 = document.querySelector("#sim1");
+        var rightSimArt2 = document.querySelector("#sim2");
+        var urlBox = document.querySelector("#urls");
+        var topTen = [];
+        var topTen2 = [];
+        var simArts1 = [];
+        var simArts2 = [];
+
+        //$("#logo").hide(0).fadeIn(350);
+        
+        $("#center").hide(0).fadeIn(600);
+
+        jQuery(function($) {
+            var socket = io.connect();
+            var $messageForm = $('#send-message');
+            var $messageBox = $('#message');
+            var $messageBox2 = $('#message2');
+            var $left = $('#leftCol');
+            var $right = $('#rightCol');
+            var $rate = $('#rating');
+            var $simArt1 = $('#sim1');
+            var $simArt2 = $('#sim2');
+
+
+            $messageForm.submit(function(e) {
+                e.preventDefault();
+                socket.emit('send message', $messageBox.val());
+                socket.emit('send message2', $messageBox2.val());
+                $messageBox.val('');
+                $messageBox2.val('');
+            });
+
+            socket.on('new message', function(data) {
+
+                
+                
+                $("#logo").fadeOut(250);
+
+            
+                middleBox.style.visibility = "visible";
+                leftText.style.opacity = '0.9';
+               
+                $("#middle").css("padding-top", "-25px");
+                middleBox.style.opacity = '1';
+                middleBox.style.textAlign = 'left';
+                rating.style.padding = '15px';
+                urlBox.style.visibility = 'hidden';
+
+
+                $("#leftCol").animate({
+                    height: '290'
+                });
+
+                var max = (data.length > 10 ? 10 : data.length);
+
+                for (var z = 0; z < max; z++) {
+                    topTen[z] = data[z];
+                   
+                    $left.append((z + 1) + ". " + topTen[z][0] + " " + topTen[z][1] + "<br>");
+                }
+
+
+            });
+
+
+            socket.on('new message2', function(data) {
+
+
+                middleBox2.style.visibility = "visible";
+                rightText.style.opacity = '0.9';
+                middleBox.style.opacity = '1';
+                middleBox.style.textAlign = 'left';
+                rating.style.padding = '15px';
+                urlBox.style.visibility = 'hidden';
+
+                var max = (data.length > 10 ? 10 : data.length);
+
+                $("#rightCol").animate({
+                    height: '290'
+                });
+
+                for (var z = 0; z < max; z++) {
+                    topTen2[z] = data[z];
+                   
+                    $right.append((z + 1) + ". " + topTen2[z][0] + " " + topTen2[z][1] + "<br>");
+                }
+            });
+
+
+            //Displays similar articles for first article
+            socket.on('similarArticles1', function(data) {
+
+                for (var z = 0; z <= 2; z++) {
+                    var substr = JSON.stringify(data[z]);
+                    var link = data[z];
+                    var link2;
+                    var spot = 0;
+
+                    for (var q = 0; link.length; q++) {
+                        if (link.charAt(q) == '&') {
+                            spot = q;
+                            break;
+                        }
+                    }
+
+                    link2 = link.slice(0, spot);
+                    substr = getHost(substr);
+
+                    $("#simHead1").text("Similar Stories");
+                    $("#simHead1").append("<br");
+
+                    if (z == 0) {
+                        $("#sim1linka").text("1. " + substr);
+                        $("#sim1linka").append("<br>");
+                        $("#sim1linka").attr("href", link2);
+                        console.log("1: " + data[z]);
+                    }
+
+                    if (z == 1) {
+                        $("#sim1linkb").text("2. " + substr);
+                        $("#sim1linkb").append("<br>");
+                        $("#sim1linkb").attr("href", link2);
+                        console.log("2: " + data[z]);
+                    }
+
+                    if (z == 2) {
+                        $("#sim1linkc").text("3. " + substr);
+                        $("#sim1linkc").append("<br>");
+                        $("#sim1linkc").attr("href", link2);
+                        console.log("3: " + data[z]);
+                    }
+                }
+
+            });
+
+            //Displays similar articles for second article
+            socket.on('similarArticles2', function(data) {
+                for (var z = 0; z <= 2; z++) {
+
+                    var substr = JSON.stringify(data[z]);
+                    var link = data[z];
+                    var link2;
+                    var spot = 0;
+
+                    for (var q = 0; link.length; q++) {
+                        if (link.charAt(q) == '&') {
+                            spot = q;
+                            break;
+                        }
+                    }
+
+                    link2 = link.slice(0, spot);
+                    substr = getHost(substr);
+
+                    $("#simHead2").text("Similar Stories");
+                    $("#simHead2").append("<br");
+
+                    if (z == 0) {
+                        $("#sim2linka").text("1. " + substr);
+                        $("#sim2linka").append("<br>");
+                        $("#sim2linka").attr("href", link2);
+                        console.log("1: " + data[z]);
+                        console.log("link: " + link2);
+                    }
+
+                    if (z == 1) {
+                        $("#sim2linkb").text("2. " + substr);
+                        $("#sim2linkb").append("<br>");
+                        $("#sim2linkb").attr("href", link2);
+                        console.log("2: " + data[z]);
+                        console.log("link: " + link2);
+                    }
+
+                    if (z == 2) {
+                        $("#sim2linkc").text("3. " + substr);
+                        $("#sim2linkc").append("<br>");
+                        $("#sim2linkc").attr("href", link2);
+                        console.log("3: " + data[z]);
+                        console.log("link: " + link2);
+                    }
+                }
+            });
+
+            ///This is the code that displays the percentage match at the bottom of the website display
+            socket.on('stats', function(data) {
+
+                $("#rating").empty();
+                rating.style.visibility = 'visible';
+                $("#rating").hide(0).delay(500).fadeIn(200);
+
+                console.log("Percent matching: " + data);
+                $rate.append("Percent matching: " + data + "<br>");
+
+            });
+        });
+    </script>
+</body>
+
+</html>

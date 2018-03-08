@@ -1,0 +1,213 @@
+/*@import url(https://fonts.googleapis.com/css?family=Raleway:100);*/
+
+body {
+    background-color: black;
+    background-image: url("city2.jpg");
+    background-size: cover;
+    font-family: Raleway;
+    font-weight: bold;
+}
+
+.shadow {
+    box-shadow: 10 4px 2px -2px yellow;
+    z-index:1;
+}
+
+ul {
+    list-style-type: none;
+    position: fixed;
+    width: 100%;
+    
+    overflow: hidden;
+    background-color: #464E5C;
+}
+
+#topBar {
+    padding:10px;
+    
+    z-index:1;
+}
+
+#center {
+
+    background-color: white;
+    opacity: 0.9;
+    padding: 25px;
+    width: 60%;
+    text-align: center;
+    margin:auto;
+
+}
+
+
+
+li a {
+    display: block;
+    color: #888;
+    text-align: center;
+    padding-right: 20px;
+    font-family: 'Raleway';
+    font-weight: bold;
+    font-size: 200%;
+    transition: all 0.5s ease;
+    text-decoration: none;
+    z-index:1;
+}
+
+li a:hover {
+    background-color: #464E5C;
+    color: #FFFFFF;
+    text-decoration: none;
+}
+
+
+li {
+    float: right;
+}
+
+form {
+    text-align: center;
+}
+
+.smalllogo {
+    float: left;
+}
+
+.mainlogo {
+    clear: both;
+    text-align: center;
+    padding-top: 80px; 
+}
+#middle {
+    width: 80%;
+    margin: auto;
+    opacity: 0.95;
+    text-align: center;
+    visibility: hidden;
+    z-index:-1;
+   
+}
+
+#middle2 {
+    width: 80%;
+    margin: auto;
+    opacity: 0.95;
+    text-align: center;
+    visibility: hidden;
+    z-index:-1;
+    
+}
+
+#leftCol {
+    float: left;
+    padding: 15px;
+    opacity: 0.5;
+    width: 50%;
+    font-size: 18px;
+    background-color: azure;
+    
+   
+}
+
+#rightCol {
+    float: left;
+    padding: 15px;
+    opacity: 0.5;
+    width: 50%;
+    font-size: 18px;
+    background-color: white;z-index:-1;
+    
+   
+}
+
+#rating {
+    clear: both;
+    margin: auto;
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+    background-color: #BFD6DA;
+    width: 80%;
+    visibility: hidden;
+}
+
+#sim1 {
+    float: left;
+    padding: 15px;
+    opacity: 0.8;
+    width: 50%;
+    font-size: 18px;
+    background-color: white;
+}
+
+#sim2 {
+    float: left;
+    padding: 15px;
+    opacity: 0.8;
+    width: 50%;
+    font-size: 18px;
+    background-color: white;
+}
+
+input[type=text] {
+    display: block;
+    padding: 10px;
+    width: 320px;
+    margin: 0 auto 10px;
+    font-family: Raleway, Helvetica;
+    border-radius: 10px;
+    border: 3px solid rgba(0, 0, 0, 0);
+}
+
+#urls {
+    position: relative;
+    top: -25px;
+    width: 50%;
+    opacity: 0.95;
+    margin: 0 auto;
+    padding: 10px;
+   
+}
+
+input[type=submit] {
+    color: white;
+    font-family: Raleway, Gill Sans MT;
+    transition: all .2s ease;
+    border: 1px dashed rgba(0, 0, 0, 0);
+    border-radius: 10px;
+    padding: 10px;
+    border-bottom: 0px solid rgba(80, 80, 235, 1);
+    background: rgba(100, 100, 255, 1);
+}
+
+input[type=submit]:hover {
+    -webkit-transition: all .2s ease;
+    -moz-transition: all .2s ease;
+    -ms-transition: all .2s ease;
+    -o-transition: all .2s ease;
+    transition: all .2s ease;
+    background: rgba(75, 75, 255, .5);
+}
+
+.pages {
+
+    width:48%;
+    height:400px;
+}
+
+#middleframe { 
+    width:90%;
+    margin:auto;
+    
+
+}
+
+#leftHost {
+
+    visibility:hidden;
+}
+
+#rightHost {
+
+    visibility:hidden;
+}
